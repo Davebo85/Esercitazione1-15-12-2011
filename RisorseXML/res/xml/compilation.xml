@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<compilation>
+    <brano id="1">
+    <titolo>Albachiara</titolo>
+    <autore>Vasco Rossi</autore>
+    <genere>Rock</genere>    
+    </brano>
+    <brano id="2">
+    <titolo>Love In An Elevator</titolo>
+    <autore>Aerosmith</autore>
+    <genere>Rock</genere>    
+    </brano>
+    <brano id="3">
+    <titolo>Beach Boys</titolo>
+    <autore>Surfin' U.S.A.</autore>
+    <genere>Pop</genere>    
+    </brano>
+</compilation>
