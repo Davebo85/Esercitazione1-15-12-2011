@@ -1,9 +1,15 @@
+// Aggiunta scrittura di un file "log.txt" che salva il risultato dei log.d,
+// includendo ora e giorno.
+
+
+
 package com.risorsexml;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.util.Calendar;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -11,7 +17,6 @@ import android.app.Activity;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,13 +25,14 @@ public class RisorseXMLActivity extends Activity {
 
 	File sdcard = Environment.getExternalStorageDirectory();
 	File file = new File(sdcard,"log.txt");
-
+	int i = 0;
 	@Override
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		creafile();
+
 		XmlResourceParser parser = getResources().getXml(R.xml.compilation);
 		try {
 			int eventType = parser.getEventType();
@@ -48,6 +54,8 @@ public class RisorseXMLActivity extends Activity {
 				}
 				eventType = parser.next();
 			}
+			i = 1;
+			scrivi(3,"FINE");
 
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
@@ -83,14 +91,20 @@ public class RisorseXMLActivity extends Activity {
 
 	public void scrivi(int num, String text) {
 		try {
-			FileOutputStream fOut = new FileOutputStream(file);
-			OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-			myOutWriter.append(num + Time.MONTH_DAY + " " + Time.MONTH + " "
-					+ Time.YEAR + "/" + Time.HOUR + " " +
-					Time.MINUTE + " " + Time.SECOND + " --> " + text);
+			BufferedWriter myOutWriter = new BufferedWriter(new FileWriter(file, true)); 
+			Calendar ci = Calendar.getInstance();
+
+			String ora = "" + ci.get(Calendar.YEAR) + "-" + 
+					(ci.get(Calendar.MONTH) + 1) + "-" +
+					ci.get(Calendar.DAY_OF_MONTH) + " " +
+					ci.get(Calendar.HOUR) + ":" +
+					ci.get(Calendar.MINUTE) +  ":" +
+					ci.get(Calendar.SECOND) + " ";
+			myOutWriter.append(num + " --> " + ora + text + "\n");
+			myOutWriter.newLine();
 			myOutWriter.close();
-			fOut.close();
-			Toast.makeText(getBaseContext(),"Done writing SD 'log.txt'",Toast.LENGTH_SHORT).show();
+			//			Non necessaria...esegue Toast per la scrittura
+			//			Toast.makeText(getBaseContext(),"Done writing SD 'log.txt'",Toast.LENGTH_SHORT).show();
 		} catch (Exception e) {
 			Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
 		}
