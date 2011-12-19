@@ -1,6 +1,5 @@
 package com.risorsexml;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -8,14 +7,10 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.app.Activity;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 
 public class RisorseXMLActivity extends Activity {
 	/** Called when the activity is first created. */
-	
-	File sdcard = Environment.getExternalStorageDirectory();
-	File file = new File(sdcard,"logRisorseXML.txt");
 	
 	@Override
 	
